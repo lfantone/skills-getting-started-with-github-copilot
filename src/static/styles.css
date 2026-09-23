@@ -59,19 +59,115 @@ section h3 {
 
 .activity-card {
   margin-bottom: 15px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  padding: 18px 16px;
+  border: 1px solid #dfe3f0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+  box-shadow: 0 6px 16px rgba(26, 35, 126, 0.08);
+}
+
+.activity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .activity-card h4 {
-  margin-bottom: 10px;
+  margin: 0;
   color: #0066cc;
+  font-size: 1.2rem;
+}
+
+.activity-description {
+  margin-bottom: 10px;
+  color: #444;
 }
 
 .activity-card p {
   margin-bottom: 8px;
+}
+
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  color: #1a237e;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.participants {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid #dfe7ff;
+  border-radius: 10px;
+  background-color: #f5f8ff;
+}
+
+.participants h5 {
+  margin: 0 0 8px 0;
+  color: #1a237e;
+  font-size: 0.95rem;
+}
+
+.participant-list {
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: 8px;
+  color: #2d3b5a;
+  list-style: none;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.participant-item.empty-state {
+  justify-content: flex-start;
+  background: transparent;
+  padding: 0;
+}
+
+.delete-participant {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: #ffebee;
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.delete-participant:hover {
+  background: #ffd7d7;
+  transform: scale(1.05);
+}
+
+.participants.empty {
+  border-style: dashed;
+  background-color: #fafbff;
+}
+
+.participants.empty .participant-list {
+  color: #60729b;
 }
 
 .form-group {
