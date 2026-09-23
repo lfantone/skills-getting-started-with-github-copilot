@@ -1,46 +1,51 @@
-from fastapi.testclient import TestClient
-
-from src.app import app, activities
+from src.app import activities
 
 
-client = TestClient(app)
+def test_unregister_existing_participant(client):
+    # Arrange
+    activity_name = "Chess Club"
+    email = "michael@mergington.edu"
 
-
-def test_unregister_existing_participant():
-    original = list(activities["Chess Club"]["participants"])
-
+    # Act
     response = client.delete(
-        "/activities/Chess Club/participants",
-        params={"email": "michael@mergington.edu"},
+        f"/activities/{activity_name}/participants",
+        params={"email": email},
     )
 
+    # Assert
     assert response.status_code == 200
-    assert response.json()["message"] == "Unregistered michael@mergington.edu from Chess Club"
-    assert "michael@mergington.edu" not in activities["Chess Club"]["participants"]
-
-    activities["Chess Club"]["participants"] = original
+    assert response.json()["message"] == f"Unregistered {email} from {activity_name}"
+    assert email not in activities[activity_name]["participants"]
 
 
-def test_unregister_unknown_participant_returns_404():
+def test_unregister_unknown_participant_returns_404(client):
+    # Arrange
+    activity_name = "Chess Club"
+    email = "missing@mergington.edu"
+
+    # Act
     response = client.delete(
-        "/activities/Chess Club/participants",
-        params={"email": "missing@mergington.edu"},
+        f"/activities/{activity_name}/participants",
+        params={"email": email},
     )
 
+    # Assert
     assert response.status_code == 404
     assert response.json()["detail"] == "Student is not signed up for this activity"
 
 
-def test_unregister_post_route_works_too():
-    original = list(activities["Programming Class"]["participants"])
+def test_unregister_post_route_works_too(client):
+    # Arrange
+    activity_name = "Programming Class"
+    email = "emma@mergington.edu"
 
+    # Act
     response = client.post(
-        "/activities/Programming Class/unregister",
-        params={"email": "emma@mergington.edu"},
+        f"/activities/{activity_name}/unregister",
+        params={"email": email},
     )
 
+    # Assert
     assert response.status_code == 200
-    assert response.json()["message"] == "Unregistered emma@mergington.edu from Programming Class"
-    assert "emma@mergington.edu" not in activities["Programming Class"]["participants"]
-
-    activities["Programming Class"]["participants"] = original
+    assert response.json()["message"] == f"Unregistered {email} from {activity_name}"
+    assert email not in activities[activity_name]["participants"]
